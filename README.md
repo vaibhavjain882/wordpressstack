@@ -52,3 +52,41 @@ During this process the KUBECONFIG env variable is automatically added to the .b
 ```
 export KUBECONFIG=$KUBECONFIG:/opt/kubeconfig
 ```
+
+## Deploying Wordpress
+
+All the following steps need to be executed from the "kubernetes" directory
+
+* Run the following commands in sequence
+
+```
+$ kubectl apply -f namespace.yaml
+```
+
+**What it does** - Creates a namespace called "wordpress"
+
+```
+$ kubectl apply -f secret.yaml
+```
+
+**What it does** - Creates a secret in the "wordpress" namespace called db-password
+
+```
+$ kubectl apply -f service.yaml
+```
+
+**What it does** - Creates a service in the "wordpress" namespace called wordpress
+
+```
+$ kubectl apply -f deployment.yaml
+```
+
+**What it does** - Creates a deployment in the "wordpress" namespace called wordpress
+
+```
+$ kubectl apply -f ingress.yaml
+```
+
+**What it does** - Creates an ingress in the "wordpress" namespace which creates an ALB for public access
+
+The DNS of the ALB can now be used to access Wordpress. After the setup is completed, the pods can be deleted and immediately new pods will be launched to keep serving the app. If a worker node is terminated, the AWS autoscaling group will create a replacement which will automatically join the cluster as a worker node.
