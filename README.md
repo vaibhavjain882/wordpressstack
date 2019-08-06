@@ -103,3 +103,17 @@ In the helm directory, there is a HELM chart called wpstack. The above deploymen
 ```
 $ helm install HELM_REPOSITORY_NAME/wpstack --name wpstack --namespace wordpress
 ```
+
+## Destroy the stack and infrastructure
+
+* To terminate the Kubernetes components
+
+```
+$ kubectl delete ns/wordpress
+```
+
+* To terminate the AWS infrastructure
+
+```
+$ terraform destroy -auto-approve
+```
