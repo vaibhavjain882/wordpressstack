@@ -7,6 +7,7 @@ The infrastructure is being deployed on AWS. To run the below infrastructure, IA
 From the directory "terraform", run
 
 ```
+$ terraform init
 $ terraform apply -auto-approve
 ```
 
