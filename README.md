@@ -77,11 +77,15 @@ $ kubectl apply -f service.yaml
 
 **What it does** - Creates a service in the "wordpress" namespace called wordpress
 
+Replace the <WP_DB_HOST> placeholder in the deployment.yaml file with the output of the command "terraform output rds_db_endpoint" which needs to be run in the "terraform" directory
+
 ```
 $ kubectl apply -f deployment.yaml
 ```
 
 **What it does** - Creates a deployment in the "wordpress" namespace called wordpress
+
+Run the command "terraform output public_subnet_ids" in the "terraform" directory. This gives a list of public subnet IDs. Replace the <COMMA_SEPARATED_PUBLIC_SUBNETS> placeholder in the ingress.yaml file with the public subnet IDs separated by commas
 
 ```
 $ kubectl apply -f ingress.yaml
@@ -90,3 +94,11 @@ $ kubectl apply -f ingress.yaml
 **What it does** - Creates an ingress in the "wordpress" namespace which creates an ALB for public access
 
 The DNS of the ALB can now be used to access Wordpress. After the setup is completed, the pods can be deleted and immediately new pods will be launched to keep serving the app. If a worker node is terminated, the AWS autoscaling group will create a replacement which will automatically join the cluster as a worker node.
+
+## Using HELM to deploy Wordpress
+
+In the helm directory, there is a HELM chart called wpstack. The above deployment can also be done with this HELM chart. The values.yaml file in the chart directory needs to be populated with the required data and the chart needs to be pushed to a HELM repository. Then the following command needs to be run to deploy,
+
+```
+$ helm install HELM_REPOSITORY_NAME/wpstack --name wpstack --namespace wordpress
+```

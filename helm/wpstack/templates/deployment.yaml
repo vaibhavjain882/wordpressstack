@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wordpress
-  namespace: wordpress
+  name: {{ .Values.stack_name }}
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:
-      app: wp-frontend
-  replicas: 2
+      app: {{ .Values.label }}
+  replicas: {{ .Values.replicas }}
   template:
     metadata:
       labels:
-        app: wp-frontend
+        app: {{ .Values.label }}
     spec:
       containers:
       - name: wordpress
-        image: wordpress:5.2.2-php7.1-apache
+        image: {{ .Values.image }}:{{ .Values.image_tag }}
         imagePullPolicy: Always
         ports:
           - containerPort: 80
@@ -27,11 +27,11 @@ spec:
               name: db-password
               key: password
         - name: WORDPRESS_DB_USER
-          value: "admin"
+          value: "{{ .Values.wp_db.user }}"
         - name: WORDPRESS_DB_HOST
-          value: <WP_DB_HOST>
+          value: "{{ .Values.wp_db.host }}"
         - name: WORDPRESS_DB_NAME
-          value: "sgtask"
+          value: "{{ .Values.wp_db.name }}"
         readinessProbe:
           tcpSocket:
             port: 80

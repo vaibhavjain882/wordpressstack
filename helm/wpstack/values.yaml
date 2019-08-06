@@ -1,0 +1,10 @@
+stack_name: wordpress
+label: wp-frontend
+replicas: 2
+image: wordpress
+image_tag: 5.2.2-php7.1-apache
+wp_db:
+  user: admin
+  host: <WP_DB_HOST>
+  name: sgtask
+public_subnets: <COMMA_SEPARATED_PUBLIC_SUBNETS>
