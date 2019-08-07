@@ -8,3 +8,6 @@ wp_db:
   host: <WP_DB_HOST>
   name: sgtask
 public_subnets: <COMMA_SEPARATED_PUBLIC_SUBNETS>
+wp_disk_capacity: 20
+wp_mount: /var/www/html
+wp_dns: <WP_DNS>

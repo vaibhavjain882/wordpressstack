@@ -32,6 +32,10 @@ spec:
           value: "{{ .Values.wp_db.host }}"
         - name: WORDPRESS_DB_NAME
           value: "{{ .Values.wp_db.name }}"
+        - name: WORDPRESS_CONFIG_EXTRA
+          value: |
+            define('WP_HOME', 'http://{{ .Values.wp_dns }}');
+            define('WP_SITEURL', 'http://{{ .Values.wp_dns }}');
         readinessProbe:
           tcpSocket:
             port: 80
@@ -44,3 +48,10 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 10
           failureThreshold: 3
+        volumeMounts:
+        - name: {{ .Values.stack_name }}-storage
+          mountPath: {{ .Values.wp_mount }}
+      volumes:
+      - name: {{ .Values.stack_name }}-storage
+        persistentVolumeClaim:
+          claimName: {{ .Values.stack_name }}-pvc

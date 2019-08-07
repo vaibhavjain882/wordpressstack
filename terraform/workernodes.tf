@@ -32,7 +32,7 @@ resource "aws_autoscaling_group" "workerNodes" {
     max_size             = "${lookup(var.worker_nodes, "capacity")}"
     min_size             = 1
     name                 = "${lookup(var.vpc, "name")}"
-    vpc_zone_identifier  = [ "${aws_subnet.prv1.id}", "${aws_subnet.prv2.id}", "${aws_subnet.prv3.id}" ]
+    vpc_zone_identifier  = [ "${aws_subnet.prv1.id}" ]
 
     tag {
         key                 = "Name"

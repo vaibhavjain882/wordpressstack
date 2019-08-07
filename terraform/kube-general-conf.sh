@@ -18,4 +18,7 @@ kubectl apply -f /opt/storage_class_custom_gp2.yaml
 kubectl patch storageclass gp2 -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 kubectl apply -f /opt/config_map_aws_auth.yaml
 
+kubectl apply -f /opt/alb_ing_rbac.yaml
+kubectl apply -f /opt/albingcontroller.yaml
+
 echo "export KUBECONFIG=$KUBECONFIG:/opt/kubeconfig" >> ~/.bash_profile

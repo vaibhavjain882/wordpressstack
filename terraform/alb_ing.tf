@@ -31,11 +31,7 @@ spec:
             - --cluster-name=${lookup(var.vpc, "name")}
           env:
             - name: AWS_REGION
-              value: eu-west-1
-            - name: AWS_ACCESS_KEY_ID
-              value: <AWS_ACCESS_KEY>
-            - name: AWS_SECRET_ACCESS_KEY
-              value: <AWS_SECRET_KEY>
+              value: ${var.region}
             - name: POD_NAME
               valueFrom:
                 fieldRef:

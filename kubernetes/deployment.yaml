@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: wp-frontend
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -29,9 +29,13 @@ spec:
         - name: WORDPRESS_DB_USER
           value: "admin"
         - name: WORDPRESS_DB_HOST
-          value: <WP_DB_HOST>
+          value: "<WP_DB_HOST>"
         - name: WORDPRESS_DB_NAME
           value: "sgtask"
+        - name: WORDPRESS_CONFIG_EXTRA
+          value: |
+            define('WP_HOME', 'http://<ALB_DNS>');
+            define('WP_SITEURL', 'http://<ALB_DNS>'); 
         readinessProbe:
           tcpSocket:
             port: 80
@@ -44,3 +48,10 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 10
           failureThreshold: 3
+        volumeMounts:
+        - name: wordpress-storage
+          mountPath: /var/www/html
+      volumes:
+      - name: wordpress-storage
+        persistentVolumeClaim:
+          claimName: wordpress-pvc
