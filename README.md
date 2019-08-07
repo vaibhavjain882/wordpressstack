@@ -94,7 +94,7 @@ $ kubectl apply -f deployment.yaml
 
 **What it does** - Creates a deployment in the "wordpress" namespace called wordpress
 
-The DNS of the ALB can now be used to access Wordpress. After the Wordpress setup is completed, to test redundancy, the pod can be deleted and immediately a new pod will be launched to keep serving the app. If a worker node is terminated, the AWS autoscaling group will create a replacement which will automatically join the cluster as a worker node. RDS will keep the database data and the physical volume will keep the Wordpress data persistent
+After allowing the pods to come up and register with the load balancer, the DNS of the ALB can now be used to access Wordpress. After the Wordpress setup is completed, to test redundancy, the pod can be deleted and immediately a new pod will be launched to keep serving the app. If a worker node is terminated, the AWS autoscaling group will create a replacement which will automatically join the cluster as a worker node. RDS will keep the database data and the physical volume will keep the Wordpress data persistent
 
 ## Using HELM to deploy Wordpress
 
