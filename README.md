@@ -39,7 +39,7 @@ What this does
 * Adds the RBAC roles for deploying the ALB ingress controller
 * Deploys the ALB ingress controller
 
-During this process the KUBECONFIG env variable is automatically added to the .bash_profile file in your HOME directory. However, if the "kubectl" command refuses to execute, run the below command,
+Run the below command to add the KUBECONFIG to your path,
 
 ```
 export KUBECONFIG=$KUBECONFIG:/opt/kubeconfig
